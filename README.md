@@ -1,6 +1,6 @@
 #codeCanvas Desktop
 
-This is an open source effort to create a community driven version of codeCanvas to run in App.js on the desktop.
+This is an open source effort to create a community driven version of codeCanvas to run in App.js on the desktop. It is based on my code at codeCanvas.org
 
 ##Idea and goals
 
