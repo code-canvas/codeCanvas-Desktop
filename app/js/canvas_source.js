@@ -1,10 +1,16 @@
-var buttonId,
-	canvas,
-	counter = 1,
+/*
+
+codeCanvas Desktop
+2012 Jason Burgess
+team@codeCanvas.org
+
+Conditionally licensed under MIT Licensing providing all code and design stays open source
+and use is not for profit.
+
+*/
+
+var canvas,
 	cResized,
-	currentSelDiv,
-	editor,
-	editor_htmlProp,
 	eleSelected;
 
 /* 

@@ -2,6 +2,9 @@
 
 udf - (user define functions) contains user defined javascript for tool elements in the designer
 
+This is called from the canvas when elements are being initalized or rebuilt. Anything in this function will
+be run when this method is called in the designer.
+
 */
 
 
@@ -80,8 +83,6 @@ function udf(){
 	  $(this).height(27+"px");
 	});
 
-
-
 	//apply resize and other behavior functions for this control
 
 	$(function() {
@@ -96,7 +97,9 @@ function udf(){
 	  //$(".jTools_tab_div").height($(this).height());
 
 	});
+
 	$('.dropdown-toggle').dropdown();
+
 	$('.btn-group').live('mouseover mouseout', function(event) {
 	  if (event.type == 'mouseover') {
 	    $(this).addClass("hoverGroup");
@@ -105,18 +108,6 @@ function udf(){
 	  }
 	});
 
-
-
-
-	$(".fm_text").resize(function(){
-	  //get the textbox inside
-	  var box = $(this).find(".fm_text_tx");
-	  $(box).width($(this).width()-10);
-	});
-
-	$('.fm_text_tx').each(function(){
-	  $(this).width($(this).parent().width()-10)
-	});
 	$(".fm_text").resize(function(){
 	  //get the textbox inside
 	  var box = $(this).find(".fm_text_tx");
@@ -127,6 +118,13 @@ function udf(){
 	  $(this).width($(this).parent().width()-10)
 	});
 
- 
+	$(".fm_text").resize(function(){
+	  //get the textbox inside
+	  var box = $(this).find(".fm_text_tx");
+	  $(box).width($(this).width()-10);
+	});
 
+	$('.fm_text_tx').each(function(){
+	  $(this).width($(this).parent().width()-10)
+	});
 }
