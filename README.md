@@ -19,7 +19,7 @@ The application hosted at codeCanvas.org requires a good amount of server side f
 
 ###User directory
 
-- usertools.html - this contains the html for each tool in your toolbox. The html construct is located inside a LI with the class "userTool". This allows you to create tool html naturally.
+- usertools.html - this contains the html for the tools in your toolbox. The html construct is located inside a LI with the class "userTool". This allows you to create tool html naturally.
 
 - usertools_design.js - This provides a the javascript for the tools while in the designer. 
 - usertools_run.js - This provides the javascript your tool needs to work in a runtime environment
