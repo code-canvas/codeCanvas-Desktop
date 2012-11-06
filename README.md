@@ -38,6 +38,16 @@ We need people to help:
 - Write docs and do videos
 - Create a support forum
 
+##TO DO
+
+There are many things yet to do... here are a few things I am working on:
+
+- file i/o - saving/opening projects
+- multiple layouts per project
+- layout tree and management
+- export pane (iframe with exported html css javascript)
+- run pane (iframe with running layout)
+
 ##Contact
 
 You can contact me on the codeCanvas website
