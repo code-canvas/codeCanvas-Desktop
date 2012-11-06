@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <title>codeCanvas Desktop</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="./app/bootstrap/css/bootstrap.css" type="text/css" />
+    <!-- pane slitter -->
+    <link rel="stylesheet" href="./app/css/layout-default-latest.css" type="text/css" />
+    <!-- application style -->
+    <link rel="stylesheet" href="./app/css/jTools.css">
+    <!-- code mirror -->
+    <link rel="stylesheet" href="./app/js/codemirror/codemirror.css">
+    <link rel="stylesheet" href="./app/js/codemirror/theme/night.css">
+  </head>
+  <body>
+
+    <!-- canvas iframe -->
+    <iframe id="canvas" class="ui-layout-center" src="./app/canvas/canvas.html"></iframe>
+
+    <!-- user tool iframe -->
+    <div style="position:absolute;width:0;height:0;display:none;">
+      <iframe id="user_jTool_html" style="position:absolute;width:0;height:0;" src="./user/usertools.html"></iframe>
+    </div>
+    
+    <!-- toolbar -->
+    <div class="ui-layout-north">
+      <div class="btn-group">
+        <button id="btnToolbar_new" class="btn btn-small">
+          <i class="icon-asterisk"></i>
+          New
+        </button>
+        <button id="btnToolbar_open" class="btn btn-small">
+          <i class="icon-folder-open"></i>
+          Open
+        </button>
+        <button id="btnToolbar_save" class="btn btn-small">
+          <i class="icon-check"></i>
+          Save
+        </button>
+        <button id="btnToolbar_export" class="btn btn-small ">
+          <i class="icon-share-alt"></i>
+          Export
+        </button>
+        <button id="btnToolbar_run" class="btn btn-small ">
+          <i class="icon-off"></i>
+          Run
+        </button>  
+      </div>
+    </div>
+
+    <!-- editor & folderview panes -->
+    <div class="ui-layout-south">
+        <div class="ui-layout-west"></div>
+        <div id="editorPane" class="ui-layout-center">
+
+          <div id="editorTools" class="navbar" style="position:absolute;">
+            <div class="navbar-inner">
+              <ul class="nav">
+                <li class=""><a onclick="codeCanvas.updateSelectedElement();" href="#"><i class="icon-refresh"></i> Update Canvas</a></li>
+                <li class="divider-vertical"></li>
+                <li class=""><a onclick="codeCanvas.deleteElement();" href="#"><i class="icon-trash"></i> Delete Element</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="editorWrapper"><textarea id="jToolsProperties_htmlbox1" rows="2" cols="20" class=""></textarea></div>
+        </div>
+    </div>
+
+    <!-- toolbox -->
+    <div class="jTools_ToolxContainer ui-draggable" id="jTools_ToolxContainer_main">
+        <div class="jTools_ToolxHandle">
+          <div class="jTools_ToolxHandleTitle">Toolbox</div>
+        </div>
+        <div class="clearBoth"></div>
+        <div class="jTools_ToolxBox">
+            <div class="jTools_ToolxBoxInner" id="jTools_ToolxBoxInner">
+              <div class="jTools_ToolxTool jTools_buttonUp" id="jTools_ToolxTool_xSelect">Selector</div>
+              <div class="clearBoth"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- html properties container -->
+    <div id="jTools_ToolxContainer_html_properties" class="jTools_ToolxContainer_prop">
+      <div class="jTools_ToolxHandle_prop"><div class="jTools_ToolxHandleTitle">Tool HTML</div></div>
+      <div class="clearBoth"></div>
+      <div class="jTools_ToolxBox">
+        <div id="jTools_ToolxContainer_html_propertiesInner" class="jTools_ToolxBoxInnerProp">
+          <div id="jTools_ToolxProp_toggle" class="jTools_ToolxProp_toggle">..</div>
+        </div>
+        <div class="clearBoth"></div>
+        <div id="html_properties_exposed"><textarea id="html_properties_exposed_textbox" rows="2" cols="20" class=""></textarea></div><!-- html_properties_exposed -->
+      </div>
+    </div>
+    
+    <!-- source libs -->
+    <script language="JavaScript" src="./app/js/libs.js"></script>
+
+    <!-- code mirror libs -->
+    <script src="./app/js/codemirror/codemirror.js"></script>
+    <script src="./app/js/codemirror/util/foldcode.js"></script>
+    <script src="./app/js/codemirror/util/formatting.js"></script>
+    <script src="./app/js/codemirror/util/searchcursor.js"></script>
+    <script src="./app/js/codemirror/mode/css/css.js"></script>
+    <script src="./app/js/codemirror/mode/javascript/javascript.js"></script>
+    <script src="./app/js/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="./app/js/codemirror/mode/xml/xml.js"></script>
+
+    <!-- application -->
+    <script language="JavaScript" src="./app/js/source.js"></script>
+
+  </body>
+</html>

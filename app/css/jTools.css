@@ -1,0 +1,534 @@
+.clearBoth
+{
+	clear: both;
+}
+BODY, HTML
+{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: #FFFFFF;
+	font-family: tahoma, arial, helvetica;
+	font-size: 12px;
+}
+#tab_jToolsProperties_jsbox
+{
+	margin: 0;
+	padding: 0;
+	width: 600px;
+	height: 600px;
+}
+#layout_main
+{
+	margin: 0;
+	padding: 0px;
+	width: 100%;
+	height: 600px;
+}
+.noShow
+{
+	display: none;
+}
+INPUT
+{
+	cursor: default;
+}
+
+/*property page*/
+#jToolsProperties
+{
+	margin: 0;
+	padding: 10px;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+}
+#jToolsProperties_html
+{
+	margin: 10px 0 0;
+	padding: 0;
+	width: 100%;
+}
+#jToolsProperties_htmlbox
+{
+	margin: -1px;
+	padding: 0;
+	width: 100%;
+}
+#editorWrapper .CodeMirror
+{
+	/*[disabled]background-image:url(images/html_bk1.png);*/
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin: 0;
+	padding: 0;
+}
+#editorWrapper
+{
+	position: absolute;
+	top: 0;
+	left:0;
+	overflow: hidden;
+	height:100%;
+	width:100%;
+}
+#editorPane
+{
+	padding:0 !important;
+}
+.tab_jToolsProperties_jsbox .CodeMirror.CodeMirror
+{
+	font-size: 12px;
+	background-image: url(images/jsedit_bk.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.tab_jToolsProperties_jsbox .CodeMirror-gutter
+{
+	min-width: 2.6em;
+	cursor: pointer;
+}
+#tab_jToolsProperties_htmlbox .CodeMirror-gutter
+{
+	min-width: 2.6em;
+	cursor: pointer;
+}
+#jToolsProperties_menu
+{
+	margin: 0;
+	padding: 0;
+	/*[disabled]width:100%;*/
+	height: 35px;
+	background-color: #EFEFEF;
+	border-bottom: 1px solid #FFFFFF;
+	border-radius: 5px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 5px;
+	border-right: 1px solid #D1D1D1;
+	border-left: 1px solid #D1D1D1;
+	border-top: 1px solid #D1D1D1;
+}
+.jToolsProperties_menu_btn
+{
+	margin: 5px 0 0;
+	padding: 5px;
+	background-color: #D0CFCF;
+	text-align: center;
+	font-family: tahoma, arial, helvetica;
+	font-size: 12px;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	cursor: pointer;
+	text-shadow: -4px -2px 9px #E6E6E6;
+	border: 1px solid #887272;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	background-image: url(images/btn_bk.png);
+	background-repeat: repeat-x;
+}
+.jToolsProperties_menu_btn:hover
+{
+	border: 1px solid #B5B3B3;
+	color: #545454;
+}
+#jToolsProperties_btn_update
+{
+	width: 120px;
+}
+.jToolsProperties_menu_spacer
+{
+	margin: 9px 0 0;
+	padding: 0;
+	width: 20px;
+	height: 20px;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	text-align: center;
+	font-family: tahoma, arial, helvetica;
+	font-size: 13px;
+	text-shadow: 1px 1px 1px #fff;
+	color: #B7B7B7;
+}
+.jToolsProperties_menu_emptyspacer
+{
+	margin: 9px 0 0;
+	padding: 0;
+	width: 5px;
+	height: 20px;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+}
+.tab_jToolsProperties_jsbox
+{
+	margin: 0;
+	padding: 0;
+	width: 600px;
+	height: 600px;
+}
+#jToolsProperties_js_menu
+{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 35px;
+	/*[empty]background-image:;*/
+	background-color: #E5E1E1;
+	border-bottom: 1px solid #AEA7A7;
+}
+#jToolsProperties_selectedEle
+{
+	margin: 0;
+	padding: 0;
+	font-family: tahoma, arial, helvetica;
+	font-size: 12px;
+}
+#jToolsProperties_btn_deleteEle
+{
+	width: 100px;
+}
+/*Toolbox*/
+.jTools_ToolxContainer
+{
+	margin: 0;
+	padding: 0 0 4px;
+	width: 120px;
+	min-height: 100px;
+	background-image: url(images/toolbox_bk.png);
+	background-repeat: repeat;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	cursor: default;
+	z-index: 50;
+	/*+placement:anchor-top-right 40px 40px;*/
+	position: absolute;
+	right: 40px;
+	top: 40px;
+}
+.jTools_ToolxHandle
+{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 20px;
+	font-family: tahoma, arial, helvetica;
+	font-size: 11px;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-topleft: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	border-bottom: 1px solid #A3A3A3;
+	cursor: move;
+	color: #E2E2E2;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	background-image: url(images/titlebar_blk_bk.png);
+	text-shadow: -4px -2px 9px #E6E6E6;
+}
+.jTools_ToolxHandleTitle
+{
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	left: 10px;
+	top: 4px;
+}
+.jTools_ToolxBox
+{
+	margin: 0;
+	padding: 0;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+}
+.jTools_ToolxBoxInner
+{
+	margin: 0;
+	padding: 4px;
+	min-height: 100px;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+}
+.jTools_ToolxContainer_prop
+{
+	margin: 0;
+	padding: 0 0 4px;
+	width: 300px;
+	min-height: 10px;
+	background-image: url(images/toolbox_bk.png);
+	background-repeat: repeat;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	cursor: default;
+	z-index: 50;
+	/*+placement:anchor-top-right 170px 40px;*/
+	position: absolute;
+	right: 170px;
+	top: 40px;
+}
+.jTools_ToolxHandle_prop
+{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 20px;
+	font-family: tahoma, arial, helvetica;
+	font-size: 11px;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-topleft: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	border-bottom: 1px solid #A3A3A3;
+	cursor: move;
+	color: #E2E2E2;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	background-image: url(images/titlebar_blk_bk.png);
+	text-shadow: -4px -2px 9px #E6E6E6;
+}
+.jTools_ToolxBoxInnerProp
+{
+	margin: 0;
+	padding: 4px;
+	min-height: 10px;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+}
+#html_properties_exposed
+{
+	margin: 0;
+	padding: 0 0 0 5px;
+	/*[empty]width:;*/
+}
+#html_properties_exposed_textbox
+{
+	margin: 0;
+	padding: 3px;
+	border: 1px solid #000000;
+	width: 282px;
+	height: 150px;
+	font-size: 10px;
+	background-color: #323232;
+	color: #FFFFFF;
+}
+/*Tools*/
+.jTools_ToolxTool
+{
+	margin: 0;
+	padding: 3px 3px 3px 5px;
+	border: 1px solid #595353;
+	font-family: tahoma, arial, helvetica;
+	font-size: 11px;
+	cursor: pointer;
+	background-image: url(images/tool_bk.png);
+	background-repeat: repeat-x;
+	color: #BDBDBD;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	display: block;
+	width: 102px;
+}
+.jTools_ToolxTool_prop
+{
+	margin: 0;
+	padding: 3px 3px 3px 5px;
+	border: 1px solid #595353;
+	font-family: tahoma, arial, helvetica;
+	font-size: 11px;
+	cursor: pointer;
+	background-image: url(images/tool_bk.png);
+	background-repeat: repeat-x;
+	color: #BDBDBD;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	display: block;
+	width: 102px;
+}
+.jTools_ToolxProp_toggle
+{
+	margin: 0;
+	padding: 3px 3px 3px 5px;
+	border: 1px solid #595353;
+	font-family: tahoma, arial, helvetica;
+	font-size: 11px;
+	cursor: pointer;
+	background-image: url(images/tool_bk.png);
+	background-repeat: repeat-x;
+	color: #BDBDBD;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	display: block;
+	width: 20px;
+	text-align: center;
+}
+.jTools_ToolxProp_toggle:hover
+{
+	color: #EDEDED;
+	text-shadow: -2px -1px 16px #FFF;
+	border: 1px solid #929292;
+}
+.jTools_ToolxTool_prop:hover
+{
+	color: #EDEDED;
+	text-shadow: -2px -1px 16px #FFF;
+}
+.jTools_buttonUp:hover
+{
+	color: #EDEDED;
+	text-shadow: -2px -1px 16px #FFF;
+}
+.jTools_ToolxTool_prop_icon
+{
+	margin: 0;
+	padding: 0;
+	background-image: url(images/package_settings.png);
+	width: 16px;
+	height: 16px;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	background-repeat: no-repeat;
+}
+.jTools_ToolxTool_prop_text
+{
+	margin: 1px 0 0 3px;
+	padding: 0;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+}
+.jTools_buttonUp
+{
+	border-top: 1px solid #8C8C8C;
+	border-bottom: 1px solid #403E3E;
+}
+.jTools_buttonDown
+{
+	border-bottom: 1px solid #242424;
+	border-top: 1px solid #727070;
+	color: #323232;
+	padding-left: 5px;
+	text-shadow: -2px -1px 8px #FFF;
+}
+.jTools_edit
+{
+	cursor: crosshair;
+}
+.jTools_tool
+{
+	border: 1px dashed #D3D2D2;
+}
+/*properties toolbar*/
+.jTools_ToolxProp
+{
+	margin: 0;
+	padding: 3px 3px 3px 5px;
+	border: 1px solid #595353;
+	font-family: tahoma, arial, helvetica;
+	font-size: 11px;
+	cursor: pointer;
+	background-image: url(images/tool_bk.png);
+	background-repeat: repeat-x;
+	color: #BDBDBD;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	/*+placement:float-left 0px 0px;*/
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	display: block;
+	width: 14px;
+	text-align: center;
+}
+.jTools_ToolxProp_btn_down
+{
+	color: #999999;
+	border-bottom: 1px solid #888888;
+	border-top: 1px solid #464444;
+}
+.jTools_ToolxProp_btn_up
+{
+	border: 1px solid #6A6A6A;
+}
+.jTools_ToolxProp_btn_up:hover
+{
+	color: #FFFFFF;
+	border: 1px solid #929292;
+}
+/*Container Classes*/
+.jTools_containerTarget
+{
+	border: 1 solid #9B0F0F;
+	cursor: crosshair;
+}
+.jTools_containerTarget:hover
+{
+	border: 1px solid #F40A0A;
+}
+.jTools_containerSelectable
+{
+	overflow: hidden;
+}
+.iframe
+{
+	margin: 0;
+	padding: 0;
+	z-index: 10000000;
+}

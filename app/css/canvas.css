@@ -1,0 +1,100 @@
+.clearBoth
+{
+	clear: both;
+}
+BODY, HTML
+{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: #FFFFFF;
+	font-family: tahoma, arial, helvetica;
+	font-size: 12px;
+}
+* {
+    -moz-user-select: -moz-none;
+}
+input, textarea{
+
+   -moz-user-select: text !important;
+   -webkit-user-select: text !important;
+}
+/*canvas*/
+#jToolsCanvas
+{
+	border: 0 solid #D9D9D9;
+	overflow-y: auto;
+	margin: 0;
+	padding: 5px;
+	height: 100%;
+	width:100%;
+	border: 0px none transparent !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow:    none !important;
+	box-shadow:         none !important;
+}
+#jToolsCanvas>.ui-resizable-s
+{
+	border-top: 1px solid #E2E2E2;
+	border-bottom: 1px solid #D2CDCD;
+	bottom: 0;
+	z-index: 0;
+	background-image: url(images/sResize_bk.png);
+	background-repeat: repeat-x;
+	background-position: 1033px -3px;
+}
+/* make sure canvas does not take on jTools_containerTarget:hover properties*/
+#jToolsCanvas:hover
+{
+	border: 0px none transparent !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow:    none !important;
+	box-shadow:         none !important;
+}
+.cc_logo
+{
+	background-image: url(images/codeCanvas_logo.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.iframe
+{
+	margin: 0;
+	padding: 0;
+	z-index: 10000000;
+}
+.jTools_edit
+{
+	cursor: crosshair;
+}
+.jTools_tool
+{
+	border: 1px dashed #D3D2D2;
+}
+/*Container Classes*/
+.jTools_containerTarget
+{
+	border: 1 solid #9B0F0F;
+	cursor: crosshair;
+}
+.jTools_containerTarget:hover
+{
+	border: 1px solid #90C8F9;
+	-webkit-box-shadow: 0px 1px 5px rgba(75, 169, 252, 0.6);
+	-moz-box-shadow:    0px 1px 5px rgba(75, 169, 252, 0.6);
+	box-shadow:         0px 1px 5px rgba(75, 169, 252, 0.6);
+}
+.jTools_containerSelectable
+{
+	overflow: hidden;
+}
+.jTool_selected
+{
+	border: 1px solid #90C8F9 !important;
+	-webkit-box-shadow: 0px 1px 5px rgba(75, 169, 252, 0.6);
+	-moz-box-shadow:    0px 1px 5px rgba(75, 169, 252, 0.6);
+	box-shadow:         0px 1px 5px rgba(75, 169, 252, 0.6);
+
+}
