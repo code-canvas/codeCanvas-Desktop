@@ -159,10 +159,7 @@ function bindContainers(){
 		if ( $(eleSelected).attr("id") != "jToolsCanvas" ){
 			
 			//make the selected element resizable
-			$(eleSelected).resizable({
-
-				//containment: $( this ).parent()
-			});
+			$(eleSelected).resizable();
 		}
 
 		//don't allow the canvas parent to be sortable
@@ -176,12 +173,16 @@ function deleteElement(ele){
 
 	$("#" + ele).remove();
 
+	//update the editor with html in the canvas
 	parent.codeCanvas.updateEditor( $.trim( $("#jToolsCanvas").html() ) );
 
+	//run user defined functions
 	udf();
 
+	//set the canvas to dirty
 	jTools_dirty = true;
 
+	//currently selected element is this canvas
 	eleSelected = $("#jToolsCanvas");
 
 }
@@ -216,7 +217,6 @@ function updateSelectedElement(html){
 
     //reselect the current element
     $(eleSelected).trigger("click");
-    
 }
 
 
@@ -228,7 +228,6 @@ $(function(){
     parent.jTools_dirty = false;
 
     resizeCanvas();
-
 });
 
 
@@ -241,7 +240,7 @@ $(function(){
 
 
 
-
+//for later... to write files locally
 /*function write_file(){
 
 	console.log("msg");

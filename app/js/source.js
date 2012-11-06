@@ -7,18 +7,23 @@ team@codeCanvas.org
 Conditionally licensed under MIT Licensing providing all code and design stays open source
 and use is not for profit.
 
+Project Uses:
+
+jQuery
+jQuery UI
+jQuery Layout - http://layout.jquery-dev.net
+Bootstrap
+Code Mirror Editor - http://codemirror.net/
+
 */
 
-var buttonId,
-	canvas,
+var canvas,
 	unique_counter = 1,
-	cResized,
 	currentSelDiv,
 	editor,
 	editor_htmlProp,
 	eleSelected,
-	jTools_dirty = false,
-	layout;
+	jTools_dirty = false;
 
 //build unique id	
 function uniqid(){
@@ -50,6 +55,8 @@ var codeCanvas = {
 
 		//a tool was selected in the toolbox
 		$( ".jTools_ToolxTool" ).click(function(){
+
+			var buttonId;
 
 			//make all buttons appear up
 			$( ".jTools_ToolxTool" ).removeClass("jTools_buttonDown");
@@ -121,10 +128,13 @@ var codeCanvas = {
 			return false;
 		}
 
-		if (confirm("Really delete item: " + selected + " and all items contained in it?") ) {
+		confirmMe("Delete Element", "Really delete item: " + selected + " and all items contained in it?", function(e){
 
-			canvas.deleteElement(selected);
-		}
+			if ( e == "yes") {
+				canvas.deleteElement(selected);
+
+			}
+		});
 	},
 
 	decodeXml : function(string){
@@ -383,7 +393,10 @@ var codeCanvas = {
 
 		editor.refresh();
 
-		canvas.resizeCanvas();
+		try {
+			canvas.resizeCanvas();
+
+		} catch(e){}
 	},
 
 	setupEditors : function(){
@@ -476,14 +489,16 @@ var codeCanvas = {
 $(function(){
 
 	//init ***
-
+	
 	//setup the workspace panes
+	//using the jquery layout plug-in (http://layout.jquery-dev.net)
 	$('body').layout({
 		south__size:     .40,
 		south__resizable: false,
 		south__childOptions: {
 
 			west : {
+				size : 225,
 				onopen : function(){
 
 

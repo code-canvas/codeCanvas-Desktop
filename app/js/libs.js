@@ -534,3 +534,55 @@ b){return(100*(parseInt(a,10)/parseInt(b,10))).toFixed()}var d=window,c=screen,g
     };
 
 })(jQuery);
+
+(function ($) {
+    $.fn.extend({
+        //pass the options variable to the function
+        confirmModal: function (options) {
+            var html = '<div class="modal" id="confirmContainer"><div class="modal-header">' +
+            '<h3 style="color:#FFFFFF;">#Heading#</h3></div><div class="modal-body">' +
+            '<div class="dialogBoxBody"><div class="ico32-info"></div><div class="dialogBoxBodyText">#Body#</div></div><div class="clearBoth"></div></div><div class="clearBoth"></div><div class="modal-footer">' +
+            '<a href="#" class="btn btn-primary" id="confirmYesBtn">&nbsp;&nbsp; Yes &nbsp;&nbsp;</a>' + 
+            '<a href="#" class="btn" id="confirmNoBtn">&nbsp;&nbsp; No &nbsp;&nbsp;</a></div></div>';
+
+            var defaults = {
+                heading: 'Please confirm',
+                body:'Body contents',
+                callback : null
+            };
+
+            var options = $.extend(defaults, options);
+            html = html.replace('#Heading#',options.heading).replace('#Body#',options.body);
+            $(this).html(html);
+            $(this).modal({
+            	backdrop : "static",
+            	keyboard: false,
+            	show : true
+            });
+            var context = $(this);
+            $('#confirmYesBtn',this).click(function(e){
+            	e.preventDefault();
+                if(options.callback!=null)
+                    options.callback('yes');
+                $(context).modal('hide');
+            });
+            $('#confirmNoBtn',this).click(function(e){
+            	e.preventDefault();
+                if(options.callback!=null)
+                    options.callback('no');
+                $(context).modal('hide');
+            });
+        }
+    });
+
+})(jQuery);
+
+function confirmMe (heading, msg, callback) {
+	$("#confirmDiv").confirmModal({
+		heading: heading,
+		body: msg,
+		callback: function (e) {
+			callback(e);
+		}
+	});
+}
