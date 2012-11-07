@@ -38,7 +38,7 @@ We need people to help:
 - Write docs and do videos
 - Create a support forum
 
-##To DO
+##To Do
 
 a few things I am working on:
 
