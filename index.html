@@ -23,7 +23,7 @@
       <iframe id="user_jTool_html" style="position:absolute;width:0;height:0;" src="./user/usertools.html"></iframe>
     </div>
     
-    <!-- toolbar -->
+    <!-- top toolbar -->
     <div class="ui-layout-north">
       <div class="btn-group">
         <button id="btnToolbar_new" class="btn btn-small">
@@ -97,6 +97,17 @@
     
     <!-- confirm dialog -->
     <div id="confirmDiv"></div>
+
+    <!-- run view -->
+    <div id="runWrapper" style="position:absolute;width:0;height:0;display:none;">
+      <div class="btn-group" style="margin: 8px 0px 0px 25px;">
+        <button id="btn_runClose" class="btn btn-primary">
+          <i class="icon-white icon-ok"></i>
+          Close
+        </button> 
+      </div>
+      <iframe id="runFrame" style="position:absolute;width:0;height:0;" src="./app/canvas/runtime.html"></iframe>
+    </div>
 
     <!-- source libs -->
     <script language="JavaScript" src="./app/js/libs.js"></script>

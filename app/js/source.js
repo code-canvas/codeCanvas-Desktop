@@ -131,8 +131,8 @@ var codeCanvas = {
 		confirmMe("Delete Element", "Really delete item: " + selected + " and all items contained in it?", function(e){
 
 			if ( e == "yes") {
-				canvas.deleteElement(selected);
 
+				canvas.deleteElement(selected);
 			}
 		});
 	},
@@ -246,6 +246,41 @@ var codeCanvas = {
 				.addClass("jTools_buttonDown");	    	
 	    });
 
+	    //toolbar click events
+
+	    $("#btnToolbar_run").on("click", function(){
+	    	codeCanvas.runLayout();
+	    });
+		
+
+		//runtime pane close button
+		$("#btn_runClose").on("click", function(){
+	    	
+			//show toolbox and property window
+	    	$("#jTools_ToolxContainer_main").show();
+	    	$("#jTools_ToolxContainer_html_properties").show();
+	    	
+	    	//hide the run wrapper
+			$("#runWrapper")
+				.css({
+					"position" : "absolute",
+					"display" : "none",
+					"left" : "0px",
+					"top" : "-1000px",
+					"z-index" : "0"
+				})
+				.attr("data-view", "closed")
+				.width(0)
+				.height(0);
+			
+			//hide the run frame
+			$("#runFrame")
+				.css({
+					"display" : "none"
+				})
+				.width(0)
+				.height(0);
+	    });
 
 	},
 
@@ -376,6 +411,20 @@ var codeCanvas = {
 
 	resizeLayout : function(){
 		
+		//if the run frame is open... resize it
+		if ( $("#runWrapper").attr("data-view") == "open" ) {
+
+			//resize the run wrapper
+			$("#runWrapper")
+				.width( $(window).width() )
+				.height( $(window).height() );
+
+			//resize the run frame
+			$("#runFrame")
+				.width( $("#runWrapper").width() - 50 )
+				.height( $("#runWrapper").height() - 75 );
+		}
+
 		var ele_parent = $("#editorWrapper").parent();
 
 		$("#editorTools").width( ele_parent.width() );
@@ -391,12 +440,55 @@ var codeCanvas = {
 		$(editor.getScrollerElement()).height($("#editorWrapper").height());
 		$(editor.getScrollerElement()).width($("#editorWrapper").width());
 
+
 		editor.refresh();
 
+		//this won't be available during our
+		//inital resize at startup
+		//so we'll try to run it
 		try {
 			canvas.resizeCanvas();
 
 		} catch(e){}
+	},
+
+	runLayout : function(){
+
+		//show the run wrapper
+		$("#runWrapper")
+			.css({
+				"position" : "absolute",
+				"display" : "block",
+				"left" : "0px",
+				"top" : "0px",
+				"z-index" : "1000000"
+			})
+			.attr("data-view", "open")
+			.width( $(window).width() )
+			.height( $(window).height() );
+		
+		//show the run frame
+		$("#runFrame")
+			.css({
+				"position" : "absolute",
+				"display" : "block",
+				"left" : "25px",
+				"top" : "50px"
+			})
+			.width( $("#runWrapper").width() - 50 )
+			.height( $("#runWrapper").height() - 75 );
+
+		//pass the html to the runtime function and call the 
+		//user defined javascript
+	    var h = canvas.getCanvasHtml();
+	    var run_html = document.getElementById('runFrame').contentWindow;
+
+	    run_html.runtime(h);
+
+	    //hide toolbox and property window
+	    $("#jTools_ToolxContainer_main").hide();
+	    $("#jTools_ToolxContainer_html_properties").hide();
+
 	},
 
 	setupEditors : function(){

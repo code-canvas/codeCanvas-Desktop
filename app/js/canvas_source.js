@@ -187,6 +187,12 @@ function deleteElement(ele){
 
 }
 
+function getCanvasHtml(){
+
+	return $("#jToolsCanvas").html();
+
+}
+
 function resizeCanvas(){
 
 	var ele_parent = $("#jToolsCanvas").parent();

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Runtime Canvas</title>
+    <link rel="stylesheet" href="../css/runtime.css" type="text/css" />
+    <link rel="stylesheet" href="../../user/usertools_run.css" type="text/css" />
+
+    <!-- jQuery UI and Bootstrap lib -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/jquery-ui/css/ui-lightness/jquery-ui-1.9.1.custom.min.css" type="text/css" />
+  </head>
+  <body>
+
+    <!-- this is the runtime canvas -->
+    <div id="jToolsCanvas"></div>
+
+    <!-- scripts -->
+    <script src="../js/canvas_libs.js"></script>
+    <script src="../../user/usertools_run.js"></script>
+
+    <script>
+
+      //this appends the html into the runtime canvas
+
+      function runtime(h) {
+
+          //load the canvas html
+          $('#jToolsCanvas').html(h);
+            
+          //give the html some time to load up
+          setTimeout(function(){
+
+            //bind the user runtime javascript
+            udf();
+            
+          },200);
+      }
+
+    </script>
+
+  </body>
+</html>
