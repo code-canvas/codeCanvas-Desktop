@@ -38,12 +38,7 @@ We need people to help:
 - Write docs and do videos
 - Create a support forum
 
-##Contact
-
-You can contact me on the codeCanvas website
-
-http://www.codecanvas.org/contact/
-
+##To DO
 
 a few things I am working on:
 
