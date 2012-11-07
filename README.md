@@ -51,7 +51,7 @@ a few things I am working on:
 - multiple layouts per project
 - layout tree and management
 - export pane (iframe with exported html css javascript)
-- run pane (iframe with running layout)
+- run pane (completed)
 
 ##Contact
 
