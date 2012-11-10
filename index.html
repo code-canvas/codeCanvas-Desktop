@@ -27,23 +27,23 @@
     <div class="ui-layout-north">
       <div class="btn-group">
         <button id="btnToolbar_new" class="btn btn-small">
-          <i class="icon-asterisk"></i>
+          <i class="cus2-page"></i>
           New
         </button>
         <button id="btnToolbar_open" class="btn btn-small">
-          <i class="icon-folder-open"></i>
+          <i class="cus-folder_page"></i>
           Open
         </button>
         <button id="btnToolbar_save" class="btn btn-small">
-          <i class="icon-check"></i>
+          <i class="cus-disk"></i>
           Save
         </button>
         <button id="btnToolbar_export" class="btn btn-small ">
-          <i class="icon-share-alt"></i>
+          <i class="cus2-script_go"></i>
           Export
         </button>
         <button id="btnToolbar_run" class="btn btn-small ">
-          <i class="icon-off"></i>
+          <i class="cus-lightbulb"></i>
           Run
         </button>  
       </div>
@@ -57,9 +57,9 @@
           <div id="editorTools" class="navbar" style="position:absolute;">
             <div class="navbar-inner">
               <ul class="nav">
-                <li class=""><a onclick="codeCanvas.updateSelectedElement();" href="#"><i class="icon-refresh"></i> Update Canvas</a></li>
+                <li class=""><a onclick="codeCanvas.updateSelectedElement();" href="#"><i class="cus-arrow_refresh"></i> Update Canvas</a></li>
                 <li class="divider-vertical"></li>
-                <li class=""><a onclick="codeCanvas.deleteElement();" href="#"><i class="icon-trash"></i> Delete Element</a></li>
+                <li class=""><a onclick="codeCanvas.deleteElement();" href="#"><i class="cus-delete"></i> Delete Element</a></li>
               </ul>
             </div>
           </div>
@@ -96,7 +96,25 @@
     </div>
     
     <!-- confirm dialog -->
-    <div id="confirmDiv"></div>
+    <div id="confirmDialog" style="display:none;"></div>
+
+    <!-- open dialog -->
+    <div id="file_openDialog" style="display:none;"></div>
+
+    <!-- save dialog -->
+    <div class="modal hide" id="file_saveDialog">
+      <div class="modal-header">
+        <h3 id="file_saveDialogTitle" style="color:#FFFFFF;">Save Project</h3>
+      </div>
+      <div id="file_saveDialogWindowBody" class="modal-body">
+        <div id="file_saveDialogDescription"><p>Please choose a file to save</p></div>
+        <div id="file_saveFilelist"></div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-primary" id="btn_saveFile_saveDialog">Save</a>
+        <a href="#" data-dismiss="modal" class="btn">Close</a>
+      </div>
+    </div>
 
     <!-- run view -->
     <div id="runWrapper" style="position:absolute;width:0;height:0;display:none;">
@@ -107,6 +125,17 @@
         </button> 
       </div>
       <iframe id="runFrame" style="position:absolute;width:0;height:0;" src="./app/canvas/runtime.html"></iframe>
+    </div>
+
+    <!-- export view -->
+    <div id="exportWrapper" style="position:absolute;width:0;height:0;display:none;">
+      <div id="exportTools" class="btn-group">
+        <button id="btn_exportClose" class="btn btn-primary">
+          <i class="icon-white icon-ok"></i>
+          Close Export
+        </button> 
+      </div>
+      <div id="export_editorWrapper"><textarea id="export_editor" rows="2" cols="20" class=""></textarea></div>
     </div>
 
     <!-- source libs -->

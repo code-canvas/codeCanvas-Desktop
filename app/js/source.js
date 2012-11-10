@@ -3,27 +3,41 @@
 codeCanvas Desktop
 2012 Jason Burgess
 team@codeCanvas.org
+http://www.codeCanvas.org
 
-Conditionally licensed under MIT Licensing providing all code and design stays open source
-and use is not for profit.
+Conditionally licensed under MIT Licensing 
+providing all code and design stays open source
+and this header stays intact.
 
 Project Uses:
 
-jQuery
-jQuery UI
-jQuery Layout - http://layout.jquery-dev.net
-Bootstrap
-Code Mirror Editor - http://codemirror.net/
+	App.js
+	Node.js
+	jQuery
+	jQuery UI
+	jQuery Layout - http://layout.jquery-dev.net
+	Bootstrap
+	Code Mirror Editor - http://codemirror.net/
+	famfamfam silk icons - http://www.famfamfam.com/lab/icons/silk/
 
+	*** 
+	
+	All required libraries used in the project 
+	are open source and have their own licensing 
+	and conditions for use.  
+	
+	***
 */
 
 var canvas,
 	unique_counter = 1,
 	currentSelDiv,
 	editor,
+	editor_export,
 	editor_htmlProp,
 	eleSelected,
-	jTools_dirty = false;
+	jTools_dirty = false,
+	openProjectLocation = '';
 
 //build unique id	
 function uniqid(){
@@ -124,6 +138,7 @@ var codeCanvas = {
 
 		selected = $(selected).attr("id");
 
+		//do nothing if no element is selected
 		if (selected === 'jToolsCanvas' || selected === '' || selected === undefined){
 			return false;
 		}
@@ -144,6 +159,16 @@ var codeCanvas = {
 	 	});
 	},
 
+	doSave : function(callback){
+		
+		//save a project to disk
+
+		console.log("file saved");
+		jTools_dirty = false;
+
+		callback();
+	},
+
 	encodeXml : function(string){
 		return string.replace(/([\&"<>])/g, 
 		function(str, item) {
@@ -151,10 +176,64 @@ var codeCanvas = {
 	  	});
 	},
 
+	exportProject : function(){
+
+		canvas.prepExport(function(h){
+
+			//show the export wrapper
+			$("#exportWrapper")
+				.attr("data-view", "open")
+				.width( $(window).width() )
+				.height( $(window).height() )
+				.css({
+					"position" : "absolute",
+					"display" : "block",
+					"left" : "0px",
+					"top" : "0px",
+					"z-index" : "1000000"
+				});
+
+			$("#export_editorWrapper")
+				.css({
+					"position" : "absolute",
+					"left" : "0px",
+					"top" : "35px",
+				})
+				.attr("data-view", "open")
+				.width( $("#exportWrapper").width() )
+				.height( $("#exportWrapper").height() -48 );
+			
+			$(editor_export.getScrollerElement()).height($("#export_editorWrapper").height());
+			$(editor_export.getScrollerElement()).width($("#export_editorWrapper").width());
+
+		    //hide toolbox and property window
+		    $("#jTools_ToolxContainer_main").hide();
+		    $("#jTools_ToolxContainer_html_properties").hide();
+		    
+		    //set the html in the export editor
+			editor_export.setValue(h);
+
+			//this selects the contents
+			CodeMirror.commands["selectAll"](editor_export);
+
+			//apply formatting to the editor
+			autoFormatSelection(editor_export);
+
+			//set the cursor to the beginning of the editor
+			editor_export.scrollTo(0,0);
+
+			//resfresh the editor
+			editor_export.refresh();
+	    });
+	},
+
 	init : function(){
 
 		//set canvas object
 	    canvas = document.getElementById('canvas').contentWindow;
+
+	    //new project... set to nothing
+		openProjectLocation = '';
 
 		//make the toolbar draggable
 		$( ".jTools_ToolxContainer" ).draggable({
@@ -167,8 +246,6 @@ var codeCanvas = {
 			handle   	: ".jTools_ToolxHandle_prop",
 			containment	: 'parent'
 		});
-
-	    //$('.jTools_ToolxTool').disableSelection();
 
 	    //toggle the html properties window closed
 	    $("#html_properties_exposed").toggle();
@@ -215,7 +292,6 @@ var codeCanvas = {
 		       	} else {
 		        	
 		        	editor_htmlProp.setValue(" ");
-
 		       	}
 
 		       	//format and set the editor
@@ -224,10 +300,7 @@ var codeCanvas = {
 		       	editor_htmlProp.scrollTo(0,0);
 		       	editor_htmlProp.refresh();
 
-		      }catch(err){
-
-		      }
-
+		      }catch(err){}
 		});
 
 	    //load the toolbox
@@ -248,18 +321,40 @@ var codeCanvas = {
 
 	    //toolbar click events
 
+	    $("#btnToolbar_new").on("click", function(){
+	    	codeCanvas.newProject(true);
+	    });
+
+	    $("#btnToolbar_export").on("click", function(){
+	    	codeCanvas.exportProject();
+	    });
+
+	    $("#btnToolbar_save").on("click", function(){
+	    	$("#file_saveDialog").modal({
+            	backdrop : "static",
+            	keyboard: true,
+            	show : true
+            });
+
+	    	//the Save button was clicked
+            $("#btn_saveFile_saveDialog").on("click", function(){
+            
+            	//need to build a file dialog that uses node
+
+            });
+	    });
+
 	    $("#btnToolbar_run").on("click", function(){
 	    	codeCanvas.runLayout();
 	    });
 		
-
 		//runtime pane close button
 		$("#btn_runClose").on("click", function(){
 	    	
 			//show toolbox and property window
 	    	$("#jTools_ToolxContainer_main").show();
 	    	$("#jTools_ToolxContainer_html_properties").show();
-	    	
+
 	    	//hide the run wrapper
 			$("#runWrapper")
 				.css({
@@ -282,6 +377,26 @@ var codeCanvas = {
 				.height(0);
 	    });
 
+	    //export pane close button
+		$("#btn_exportClose").on("click", function(){
+	    	
+			//show toolbox and property window
+	    	$("#jTools_ToolxContainer_main").show();
+	    	$("#jTools_ToolxContainer_html_properties").show();
+
+	    	//hide the run wrapper
+			$("#exportWrapper")
+				.css({
+					"position" : "absolute",
+					"display" : "none",
+					"left" : "0px",
+					"top" : "-1000px",
+					"z-index" : "0"
+				})
+				.attr("data-view", "closed")
+				.width(0)
+				.height(0);
+	    });
 	},
 
 	loadElementConstructor : function(id){
@@ -360,12 +475,6 @@ var codeCanvas = {
 				$("#jTools_ToolxBoxInner").append(toolConstruct);
 			}
 
-			//add the tool options button
-			//toolConstruct  = '<div id="properties_983475345" class="jTools_ToolxTool_prop"><div class="jTools_ToolxTool_prop_icon"></div><div class="jTools_ToolxTool_prop_text">Tool Options</div></div>';
-			
-			//append to toolbox
-			//$("#jTools_ToolxBoxInner").append(toolConstruct);
-
 			//bind the click events to the new tools
 			codeCanvas.bindToolClick(function(){
 
@@ -399,12 +508,58 @@ var codeCanvas = {
 		callback(toolbox_items);
 	},
 
+	newProject : function(b){
+
+		console.log("newProject");
+
+		//does the user need to save the project?
+		if ( b != false && jTools_dirty === true ) {
+
+			//ask the user to save the project
+			codeCanvas.saveProject(function(){
+
+				console.log("saveProject completed");
+
+				//take a breath...
+				setTimeout(function(){
+
+					/* 
+					try the new project method again with
+					"check for save" flag set to false indicating
+					our save attempt */
+					codeCanvas.newProject(false);
+				},100);
+			});
+		
+		} else {
+
+			//take a breath...
+			setTimeout(function(){
+
+				confirmMe("New Project", "Start new project?", function(e){
+
+					if ( e == "yes") {
+
+						//clear the canvas
+						canvas.newProject();
+						
+						//update the editor
+						codeCanvas.updateEditor(" ");
+
+						//reset the open project string
+						openProjectLocation = '';
+					}
+				});
+				
+			},100);
+		} 
+	},
+
 	rebuildElements_ex : function(){
 
 		//deselect elements
-		canvas.adjustClasses("!btnSelect");
+		canvas.adjustClasses("jTools_ToolxTool_xSelect");
 		canvas.bind_jTools();
-		
 		//canvas.bindContainers();
 
 	},
@@ -425,6 +580,34 @@ var codeCanvas = {
 				.height( $("#runWrapper").height() - 75 );
 		}
 
+		//if the export frame is open... resize it
+		if ( $("#exportWrapper").attr("data-view") == "open" ) {
+
+			//resize the export wrapper
+			$("#exportWrapper")	
+				.width( $(window).width() )
+				.height( $(window).height() )
+				.css({
+					"left" : "0px",
+					"top" : "0px"
+				});
+
+			//resize editor wrapper to accomodate editor sizing
+			$("#export_editorWrapper")
+				.css({
+					"position" : "absolute",
+					"display" : "block",
+					"left" : "0px",
+					"top" : "35px",
+				})
+				.width( $("#exportWrapper").width() )
+				.height( $("#exportWrapper").height() -48 );
+			
+			//resize the export editor
+			$(editor_export.getScrollerElement()).height($("#export_editorWrapper").height());
+			$(editor_export.getScrollerElement()).width($("#export_editorWrapper").width());
+		}
+
 		var ele_parent = $("#editorWrapper").parent();
 
 		$("#editorTools").width( ele_parent.width() );
@@ -436,10 +619,8 @@ var codeCanvas = {
 				"top" : $("#editorTools").height() 
 		});
 
-		//editor.height(main_layout.cells("c").getHeight());
 		$(editor.getScrollerElement()).height($("#editorWrapper").height());
 		$(editor.getScrollerElement()).width($("#editorWrapper").width());
-
 
 		editor.refresh();
 
@@ -453,6 +634,13 @@ var codeCanvas = {
 	},
 
 	runLayout : function(){
+
+		//remove any selection or resizable from elements
+		canvas.adjustClasses("notSelected");
+		canvas.adjustClasses("jTools_ToolxTool_xSelect");
+		
+		//click the select tool in the toolbox
+		$('#jTools_ToolxTool_xSelect').trigger('click');
 
 		//show the run wrapper
 		$("#runWrapper")
@@ -491,6 +679,53 @@ var codeCanvas = {
 
 	},
 
+	saveProject : function(callback){
+
+		/*
+			TODO:
+			see if there is an open project and auto save
+			or if not... ask the user
+		*/
+
+		if ( openProjectLocation != '') {
+
+			//just save the file
+			codeCanvas.doSave(function(){
+
+				console.log("openProjectLocation file saved");
+
+				jTools_dirty = false;
+				callback();
+
+			});
+
+		} else {
+
+			//this is a placeholder function until we can figure out
+			//a custom confirm dialog with file/save folder list using Node
+			//open to any ideas... 
+			confirmMe("Save Project", "Save project?", function(e){
+
+				if ( e == "yes") {
+
+					//TODO: display a file save as dialog
+					//then call dosave from the dialog
+					
+					//then run the save
+					codeCanvas.doSave(function(){
+						
+						callback();
+					});
+
+				} else {
+
+					//no... don't save file
+					callback();
+				}
+			});
+		}
+	},
+
 	setupEditors : function(){
 
 		//setup the main code editor
@@ -498,6 +733,15 @@ var codeCanvas = {
 	        lineNumbers: true,
 	        mode: "htmlmixed"
 	    });
+
+	    //setup the export code editor
+	    editor_export = CodeMirror.fromTextArea(document.getElementById("export_editor"), {
+	        lineNumbers: true,
+	        mode: "htmlmixed"
+	    });
+
+	    //initally place a space in the editor 
+		editor_export.setValue(" ");
 
 	    //setup the html properties editor
 	    editor_htmlProp = CodeMirror.fromTextArea(document.getElementById("html_properties_exposed_textbox"), {
@@ -529,6 +773,7 @@ var codeCanvas = {
 
 	statusUpdate : function(str){
 
+		//update a status bar
 	},
 
 	updateEditor : function(html){
@@ -554,7 +799,7 @@ var codeCanvas = {
 	        canvas.eleSelected = "jToolsCanvas";
 	    }
 
-	    //make sure editor is not empty
+	    //get html from editor
 	    var editorContent = editor.getValue();
 
 	    //validate the html
@@ -647,7 +892,7 @@ $(function(){
 		   $("#jTools_ToolxContainer_html_properties").attr('style', 'left: ' + inView + 'px; top: 20px;');
 		}
 
-		//codeCanvas.resizeLayout();
+		codeCanvas.resizeLayout();
 
 	});
 
@@ -657,5 +902,3 @@ $(function(){
 	codeCanvas.resizeLayout();
 
 });
-
-

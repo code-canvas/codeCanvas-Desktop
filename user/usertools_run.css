@@ -160,3 +160,32 @@
 	font-size: 11px;
 }
 
+/* text box */
+
+.flexibleTextbox
+{
+	margin: 0 8px 0 0;
+	padding: 0 8px 5px 0 !important;
+	width: 125px;
+	height: 50px;
+	font-family: tahoma, arial, helvetica;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	float: left;
+	position: relative;
+	left: 0px;
+	top: 0px;
+}
+.flexibleTextbox .textbox
+{
+	margin: 0 0 4px !important;
+	padding: 0;
+	width: 125px;
+	height: 20px;
+	font-size: 14px;
+    padding: 0px;
+}
+.flexibleTextbox LABEL
+{
+	font-size: 12px;
+}

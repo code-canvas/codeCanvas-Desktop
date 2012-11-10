@@ -1,5 +1,35 @@
 /*
 
+codeCanvas Desktop
+2012 Jason Burgess
+team@codeCanvas.org
+http://www.codeCanvas.org
+
+Conditionally licensed under MIT Licensing 
+providing all code and design stays open source
+and this header stays intact.
+
+Project Uses:
+
+	App.js
+	Node.js
+	jQuery
+	jQuery UI
+	jQuery Layout - http://layout.jquery-dev.net
+	Bootstrap
+	Code Mirror Editor - http://codemirror.net/
+
+	*** 
+	
+	All required libraries used in the project 
+	are open source and have their own licensing 
+	and conditions for use.  
+	
+	***
+*/
+
+/*
+
 At this time, the canvas is built for jQuery 1.7.1 and jQuery UI 1.8.16
 The libraries in this file are required for the canvas to run and to provide any Jquery UI 
 functionailty to any user defined tool elements that require it.

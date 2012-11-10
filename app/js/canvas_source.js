@@ -3,10 +3,29 @@
 codeCanvas Desktop
 2012 Jason Burgess
 team@codeCanvas.org
+http://www.codeCanvas.org
 
-Conditionally licensed under MIT Licensing providing all code and design stays open source
-and use is not for profit.
+Conditionally licensed under MIT Licensing 
+providing all code and design stays open source
+and this header stays intact.
 
+Project Uses:
+
+	App.js
+	Node.js
+	jQuery
+	jQuery UI
+	jQuery Layout - http://layout.jquery-dev.net
+	Bootstrap
+	Code Mirror Editor - http://codemirror.net/
+
+	*** 
+	
+	All required libraries used in the project 
+	are open source and have their own licensing 
+	and conditions for use.  
+	
+	***
 */
 
 var canvas,
@@ -169,6 +188,12 @@ function bindContainers(){
 	});
 }
 
+/*
+
+allows the main interface to delete elements 
+from the canvas
+
+*/
 function deleteElement(ele){
 
 	$("#" + ele).remove();
@@ -191,6 +216,46 @@ function getCanvasHtml(){
 
 	return $("#jToolsCanvas").html();
 
+}
+
+function newProject(){
+
+	$("#jToolsCanvas").html("");
+
+}
+
+/*
+
+allows the main interface to prep the canvas elements for
+display in the export editor
+
+*/
+
+function prepExport(callback){
+
+	//append a temporary spot to parse the html from the canvas
+	$("#tempExport").html( $("#jToolsCanvas").html() );
+
+	//take a breath
+	setTimeout(function(){
+		
+		//remove the designer classes to cleanup export output
+		prepExportParse(function(){
+
+			callback( $("#tempExport").html() );
+		});
+
+	},200);
+}
+
+function prepExportParse(callback){
+
+	$("#tempExport .jTools_tool").removeClass("jTools_tool jTools_container jTools_containerTarget jTools_containerSelectable");
+
+	//take a breath... let removeClass finish
+	setTimeout(function(){
+		callback();
+	},200);
 }
 
 function resizeCanvas(){
@@ -225,7 +290,6 @@ function updateSelectedElement(html){
     $(eleSelected).trigger("click");
 }
 
-
 $(function(){
 	
 	//init the select on startup
@@ -235,35 +299,3 @@ $(function(){
 
     resizeCanvas();
 });
-
-
-
-
-
-
-
-
-
-
-
-//for later... to write files locally
-/*function write_file(){
-
-	console.log("msg");
-	$("#btn").text("Not");
-
-	var fs = require('fs');
-	fs.writeFile("test.txt", "Hey there!", function(err) {
-	    if(err) {
-	        console.log(err);
-	        $("#btn").text(err);
-	    } else {
-	        console.log("The file was saved!");
-	        $("#btn").text("The file was saved");
-	        alert("saved");
-	    }
-	}); 
-
-}*/
-
-

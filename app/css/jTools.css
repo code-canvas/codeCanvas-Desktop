@@ -541,7 +541,6 @@ INPUT
 	background: -ms-linear-gradient(top,  #0088cc 1%,#0044cc 60%); /* IE10+ */
 	background: linear-gradient(to bottom,  #0088cc 1%,#0044cc 60%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0088cc', endColorstr='#0044cc',GradientType=0 ); /* IE6-9 */
-
     border-bottom: 1px solid #EEEEEE;
     padding: 9px 15px;
     font-size: 16px !important;
@@ -567,4 +566,41 @@ INPUT
 	border: 1px solid #DDDDDD;
 	background-color: #FFFFFF;
 	box-shadow: 0 0 8px #DDDDDD;
+}
+#exportWrapper{
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(50%,#f3f3f3), color-stop(51%,#ededed), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+#export_editorWrapper {
+    border-top: 1px solid #DDDDDD;
+    margin: 10px 0 0;
+    padding: 0;
+    position: absolute;
+    left: 0px;
+    top: 30px;
+}
+#exportTools
+{
+	position: absolute;
+	left: 25px;
+	top: 8px;
+}
+#file_saveFilelist 
+{
+	margin: 0;
+	padding: 0;
+	height:200px; 
+	overflow: none;
+	overflow-y: auto; 
+	border: 1px solid #EDEDED;
+}
+#file_saveDialog p
+{
+	font-size: 14px !important;
 }
