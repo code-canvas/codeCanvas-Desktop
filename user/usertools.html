@@ -27,47 +27,102 @@
 			<div id="clearBoth{{uniqid}}" class="clearBoth jTools_tool"></div>
 		</li>
 
-		<!-- flexible div -->
-		<li class="userTool" id="toolbox_flexibleDiv_102456789" data-tool_name="Flexible Div">
+		<!-- flexible container -->
+		<li class="userTool" id="toolbox_flexibleDiv_102456789" data-tool_name="Div Container">
 			<div id="div{{uniqid}}" class="flexibleDiv jTools_tool jTools_container"></div>
 		</li>
 
-		<!-- label -->
-		<li class="userTool" id="toolbox_label_90872349875" data-tool_name="Label">
-			<div id="label{{uniqid}}" class="flexi_label jTools_tool">
-				<div class="flexi_label_text">New Label</div>
-			</div>
-		</li>
-		
-		<!-- text box -->
-		<li class="userTool" id="toolbox_textbox_102qwesss56789" data-tool_name="Text Box">
-			<div id="div_textbox{{uniqid}}" class="flexibleTextbox jTools_tool">
-				<input id="textbox{{uniqid}}" class="textbox" tabindex="0" />
-				<label for="textbox{{uniqid}}" id="label_textbox{{uniqid}}" class="label_textbox">new textbox</label>
-			</div>
-		</li>
-		
-		<!-- form text box -->
-		<li class="userTool" id="toolbox_textbox2_892634hkjsefkjhwefg" data-tool_name="Form Textbox">
-			<div id="form_textbox{{uniqid}}" class="form_textbox jTools_tool">
-				<div id="form_textbox_label{{uniqid}}" class="form_textbox_label jTools_tool">New Textbox</div>
-				<div id="form_textbox_box{{uniqid}}" class="form_textbox_box jTools_tool">
-					<input id="form_textbox_input{{uniqid}}" class="form_textbox_input" tabindex="0" />
-					<div id="form_textbox_input_msg{{uniqid}}" class="form_textbox_input_msg" ></div>
+		<!-- bootstrap forms -->
+		<li class="userTool" id="toolbox_bootstrap_forms" data-tool_name="Bootstrap Forms">
+
+			<!-- legend -->
+			<legend id="leg{{uniqid}}" class="jTools_tool">Legend</legend>
+			<br class="jTools_break">
+			
+			<!-- horizontal form -->
+			<div id="bform{{uniqid}}" class="form-horizontal jTools_tool jTools_container"></div>
+			<br class="jTools_break">
+			
+			<!-- text field -->
+			<div id="bgroup{{uniqid}}" class="control-group jTools_tool">
+				<label class="control-label" for="bform_input{{uniqid}}">
+					Label:
+				</label>
+				<div class="controls">
+					<input id="bform_input{{uniqid}}" placeholder="Placeholder" type="text">
 				</div>
-				<div class="clearBoth"></div>
-				<div id="form_textbox_msg{{uniqid}}" class="form_textbox_msg">Message Area</div>
 			</div>
-		</li>
-
-		<!-- date box -->
-		<li class="userTool" id="toolbox_advdateBox_1024ss56789" data-tool_name="Date Box">
-			<div id="div_advdatebox{{uniqid}}" class="flexibleDateDiv jTools_tool">
-				<input id="advdatebox{{uniqid}}" class="advdateBox" tabindex="0" />
-				<label for="advdatebox{{uniqid}}" id="label_advdatebox{{uniqid}}" class="label_advdatebox">new datebox</label>
+			<br class="jTools_break">
+			
+			<!-- date box -->
+			<div id="bdategroup{{uniqid}}" class="control-group jTools_tool">
+				<label class="control-label" for="bform_input{{uniqid}}">
+					Date:
+				</label>
+				<div class="controls">
+					<input id="bform_input{{uniqid}}" class="advdateBox" placeholder="Choose Date" type="text">
+				</div>
 			</div>
-		</li>
+			<br class="jTools_break">
 
+			<!-- select box -->
+			<div id="bgroup{{uniqid}}" class="control-group jTools_tool">
+				<label class="control-label" for="bform_input{{uniqid}}">
+					Select:
+				</label>
+				<div class="controls">					
+					<select id="bselect{{uniqid}}">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+					</select>
+				</div>
+			</div>
+			<br class="jTools_break">
+			
+			<!-- button -->
+			<div class="control-group jTools_tool" >
+				<div class="controls">
+					<button id="bform_btn{{uniqid}}" class="btn">New Button</button>
+				</div>
+			</div>
+			<br class="jTools_break">
+			
+			<!-- control group -->
+			<div class="control-group jTools_tool" >
+				<div class="controls jTools_container"></div>
+			</div>
+			<br class="jTools_break">
+			
+			<!-- checkbox -->
+			<label id="lbl{{uniqid}}" class="checkbox jTools_tool">
+		    	<input value="" type="checkbox">
+		    	Checkbox
+		    </label>
+		    <br class="jTools_break">
+		    
+		    <!-- inline checkbox -->
+			<label id="lbl{{uniqid}}" class="checkbox inline">
+				<input type="checkbox" value=""> Checkbox
+			</label>
+		    <br class="jTools_break">
+		    
+		    <!-- option button -->
+			<label id="lbl{{uniqid}}" class="radio jTools_tool">
+				<input type="radio" name="radio" id="opt{{uniqid}}" value="option value">
+				Option
+			</label>
+			<br class="jTools_break">
+			
+			<!-- inline option -->
+			<label id="lbl{{uniqid}}" class="radio inline">
+				<input type="radio" name="nameOptions" id="opt{{uniqid}}" value="option value"> Option
+			</label>
+		    <br class="jTools_break">
+			
+		</li>
 	</ul>
 
 	</body>

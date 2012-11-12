@@ -37,6 +37,7 @@ var canvas,
 	editor_htmlProp,
 	eleSelected,
 	jTools_dirty = false,
+	jTools_elementConstArr = [],
 	openProjectLocation = '';
 
 //build unique id	
@@ -178,6 +179,13 @@ var codeCanvas = {
 
 	exportProject : function(){
 
+		//remove any selection or resizable from elements
+		canvas.adjustClasses("notSelected");
+		canvas.adjustClasses("jTools_ToolxTool_xSelect");
+		
+		//click the select tool in the toolbox
+		$('#jTools_ToolxTool_xSelect').trigger('click');
+		
 		canvas.prepExport(function(h){
 
 			//show the export wrapper
@@ -264,6 +272,8 @@ var codeCanvas = {
 	    //click event for when a dimension button is clicked
 	    $(".jTools_ToolxProp").live("click", function(){
 
+	    	var elem = this;
+
 		    $(".jTools_ToolxProp")
 		    	.removeClass("jTools_ToolxProp_btn_down")
 		    	.addClass("jTools_ToolxProp_btn_up");
@@ -273,11 +283,16 @@ var codeCanvas = {
 		    	.addClass("jTools_ToolxProp_btn_down");
 
 		    //TODO
-		    codeCanvas.rebuildElements_ex();
+		    //codeCanvas.rebuildElements_ex();
+
+		    canvas.adjustClasses("jTools_ToolxTool_xSelect1");
+			canvas.bind_jTools();
+			canvas.bindContainers();
+
 		    //udf();
 
 		    //what is the index of this button in the dimension array?
-		    var idx = $(this).attr("idx");
+		    var idx = $(elem).attr("idx");
 		    idx = idx - 1;
 
 		    try{
@@ -404,10 +419,19 @@ var codeCanvas = {
 		//get the html for this tool
 
 		var jTools_tool,
-			html_tool_constructor = $.trim( $("#user_jTool_html").contents().find("#" + id).html() );
+			html_tool_constructor = $.trim( $("#user_jTool_html").contents().find("#" + id).html() ),
+			trim_html = html_tool_constructor.split('\n');
+
+		//remove the line breaks and trim html
+       	html_tool_constructor = '';
+
+       	$.each(trim_html, function(){
+           	
+           	html_tool_constructor = html_tool_constructor + $.trim(this);
+       	});
 
        	//build array from any break delimiters
-       	jTools_elementConstArr = html_tool_constructor.split('<br class="jTools_break" />');
+       	jTools_elementConstArr = html_tool_constructor.split('<br class="jTools_break">');
 
        	//build each tool dimension 
        	var buttonArray = '<div id="jTools_ToolxProp_toggle" class="jTools_ToolxProp_toggle">..</div>';
@@ -560,7 +584,7 @@ var codeCanvas = {
 		//deselect elements
 		canvas.adjustClasses("jTools_ToolxTool_xSelect");
 		canvas.bind_jTools();
-		//canvas.bindContainers();
+		canvas.bindContainers();
 
 	},
 

@@ -90,6 +90,8 @@ function bind_jTools(){
 	$(".jTools_containerTarget").bind("click", function(e){
 		e.stopPropagation();
 
+		console.log("bind click");
+		
 		//set the global selected element
 		eleSelected = this;
 
@@ -250,7 +252,8 @@ function prepExport(callback){
 
 function prepExportParse(callback){
 
-	$("#tempExport .jTools_tool").removeClass("jTools_tool jTools_container jTools_containerTarget jTools_containerSelectable");
+	//use this to strip any unwanted designer classes from your export html 
+	$("#tempExport .jTools_tool").removeClass("jTools_tool jTools_container jTools_containerTarget jTools_containerSelectable jTool_selected ui-resizable hasDatepicker");
 
 	//take a breath... let removeClass finish
 	setTimeout(function(){
