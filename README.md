@@ -11,6 +11,7 @@ The application hosted at codeCanvas.org requires a good amount of server side f
 - Download App.js for your platform (Mac, Linux, Windows)
 - Place the codeCanvas files into the 'content' directory in app.js
 - Start the app loader in the main app.js directory
+- Check out the video -> building a simple form using a Bootstrap tool - http://youtu.be/7B5njAEy9Cs
 
 ##Structure
 
@@ -42,11 +43,9 @@ We need people to help:
 
 a few things I am working on:
 
-- file i/o - saving/opening projects
+- file i/o - build a file save/open project dialog using Node
 - multiple layouts per project
 - layout tree and management
-- export pane (iframe with exported html css javascript)
-- run pane (completed)
 
 ##Contact
 
