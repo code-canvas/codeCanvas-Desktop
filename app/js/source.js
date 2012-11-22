@@ -36,9 +36,15 @@ var canvas,
 	editor_export,
 	editor_htmlProp,
 	eleSelected,
+	fs_dir = [],
+	fs_files = [],
+	fs_items = [],
+	fs_current_dir = {},
+	fs_isBase,
 	jTools_dirty = false,
 	jTools_elementConstArr = [],
-	openProjectLocation = '';
+	openProjectLocation = '',
+	ul;
 
 //build unique id	
 function uniqid(){
@@ -345,11 +351,41 @@ var codeCanvas = {
 	    });
 
 	    $("#btnToolbar_save").on("click", function(){
-	    	$("#file_saveDialog").modal({
-            	backdrop : "static",
-            	keyboard: true,
-            	show : true
-            });
+
+	    	var fs = require('fs');
+
+	    	var node_base_directory,
+	    	node_project_dir,
+	    	node_project_dir_ext;
+
+	    	var node_path = require('path'),
+			node_sep = node_path.sep, 
+			stats;
+
+	    	//the app base install directory
+		  	node_base_directory = node_path.dirname(require.main.filename);
+
+		  	//cross platform join sets the correct separator
+		  	node_project_dir_ext = node_path.join("content", "user", "projects");
+
+		  	//buid the path to the projects directory
+		  	node_project_dir = node_base_directory + node_sep + node_project_dir_ext;
+
+	    	//get the project directory contents in the save dialog
+	    	getDirectory.readDir(node_project_dir, function(){
+
+	    		//place the fs_items into the list
+		    	$('#file_saveFilelist').html( ul );
+
+		    	getDirectory.bindEvents();
+
+		    	$("#file_saveDialog").modal({
+	            	backdrop : "static",
+	            	keyboard: true,
+	            	show : true
+	            });	    		
+	    	});
+	    	
 
 	    	//the Save button was clicked
             $("#btn_saveFile_saveDialog").on("click", function(){
@@ -844,6 +880,189 @@ var codeCanvas = {
 
 		codeCanvas.statusUpdate("Selected: " + selected);
 
+	}
+}
+
+var getDirectory = {
+
+	bindEvents : function(){
+
+		//bind the click event to the new fs_items
+		$(".fs_item").unbind("click").bind("click", function(){
+
+			var self = this,
+				fs_type = $(self).attr("data-type");
+
+			if ( fs_type == "dir") {
+
+				//look up the path in the fs map
+				var fs_path = $(self).attr("data-key");
+					fs_path = fs_items[fs_path];
+
+				//list the contents of this directory
+				getDirectory.readDir(fs_path, function(){
+
+					//place the fs_items into the list
+					$('#file_saveFilelist').html( ul );
+
+					getDirectory.bindEvents();
+
+				});
+
+			} else {
+
+				//this is a file... do save on this file
+				//TODO
+			}
+		});
+	},
+
+	buildFileList : function(callback){
+
+		var i,
+			baseName,
+			fullPath,
+			path = require('path');
+
+		//show all files
+		for (i = 0; i < fs_files.length; i++) {
+
+			fullPath = fs_files[i];
+			baseName = path.basename(fullPath)
+
+			ul = ul + '<li class="fs_file fs_item" data-type="file" data-path="' + fullPath + '"><i class="cus2-page"></i> ' + baseName + '</li>';
+	              
+		}
+
+		callback();
+	},
+
+	buildDirList : function(callback){
+
+		var i,
+			j,
+			baseName,
+			fullPath,
+			fs_key,
+			path = require('path'),
+			node_sep = path.sep;
+
+		for (i = 0; i < fs_dir.length; i++) {
+
+			fullPath = fs_dir[i];
+
+			if (fullPath == "..") {
+
+				//build path above this level
+				baseName = "..";
+				fullPath = fs_current_dir.pieces;
+
+				//start with the first
+				var p = "";
+
+				//build unix path... minus last directory (Windows paths will be handled differently)
+				for (j = 0; j < fullPath.length -1; j++) {
+					p = p + fullPath[j];
+
+					if ( j != fullPath.length -2 )
+						p = p + node_sep; //no last separator
+				}
+
+				//reset the full path var
+				fullPath = p;
+				
+			} else {
+
+				//set the base name of the file (without path)
+				baseName = path.basename(fullPath);
+			}
+			
+			//create a unique id for storing the full path
+			fs_key = uniqid();
+
+			//store the item path in the map by key
+			fs_items[fs_key] = fullPath;
+
+			ul = ul + '<li class="fs_folder fs_item" data-type="dir" data-key="' + fs_key + '"><i class="cus-folder"></i> ' + baseName + '</li>';
+	              
+		}
+
+		callback();
+	},
+
+	readDir : function(d, callback){
+
+		ul = '<ul>';
+
+		getDirectory.__readDir(d, function(){
+
+			getDirectory.buildDirList(function(){
+
+				getDirectory.buildFileList(function(){
+
+					ul = ul + '</ul>';
+					
+					callback();
+				});
+			});
+		});
+	},
+
+	__readDir : function(d, callback){
+
+		var fs = require('fs');
+
+    	var node_path = require('path'),
+		node_sep = node_path.sep, 
+		stats;
+
+	  	//reset the fs arrays
+	  	fs_dir = [];
+		fs_files = [];
+		fs_items = [];
+
+		//where are we in the directory structure?
+		fs_current_dir = {
+
+			"path" : d,
+			"pieces" : d.split(node_sep)
+		}
+		
+		//are we at the top level?
+		if (fs_current_dir.pieces.length > 2) {
+			
+			//no... we can go further
+			fs_dir.push("..");
+
+		}
+
+		//read the directory
+	  	fs.readdir(d, function (err, filenames) {
+
+	    	var i,
+	    		f;
+
+	    	//loop through the items in the directory
+	    	for (i = 0; i < filenames.length; i++) {
+
+	    		//define current item with complete path
+	    		f = d + node_sep + filenames[i];
+
+	    		//evaluate if this is a directory or file
+	    		stats = fs.statSync(f);
+
+	    		if ( stats.isDirectory() ) {
+
+	    			fs_dir.push(f);
+
+	    		} else if ( stats.isFile() ) {
+
+	    			fs_files.push(f);
+	    		}
+			}
+
+	  		callback();
+	  	});
 	}
 }
 
