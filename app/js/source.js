@@ -1204,7 +1204,8 @@ var getDirectory = {
 	  	fs.readdir(d, function (err, filenames) {
 
 	    	var i,
-	    		f;
+	    		f,
+	    		p;
 
 	    	//loop through the items in the directory
 	    	for (i = 0; i < filenames.length; i++) {
@@ -1221,7 +1222,14 @@ var getDirectory = {
 
 	    		} else if ( stats.isFile() ) {
 
-	    			fs_files.push(f);
+	    			//we only want html file types
+	    			p = node_path.extname(f);
+
+	    			if ( p.toLowerCase() == '.html') {
+	    				
+	    				fs_files.push(f);
+	    			}
+
 	    		}
 			}
 
