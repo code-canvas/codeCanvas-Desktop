@@ -43,7 +43,6 @@ We need people to help:
 
 a few things I am working on:
 
-- file i/o - build a file save/open project dialog using Node
 - multiple layouts per project
 - layout tree and management
 
