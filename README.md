@@ -45,6 +45,8 @@ a few things I am working on:
 
 - multiple layouts per project
 - layout tree and management
+- specific tools for each project
+- building a 'default' set of templates for new projects
 
 ##Contact
 
