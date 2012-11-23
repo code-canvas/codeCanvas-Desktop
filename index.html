@@ -98,9 +98,6 @@
     <!-- confirm dialog -->
     <div id="confirmDialog" style="display:none;"></div>
 
-    <!-- open dialog -->
-    <div id="file_openDialog" style="display:none;"></div>
-
     <!-- save dialog -->
     <div class="modal hide" id="file_saveDialog">
       <div class="modal-header">
@@ -109,9 +106,29 @@
       <div id="file_saveDialogWindowBody" class="modal-body">
         <div id="file_saveDialogDescription"><p>Please choose a file to save</p></div>
         <div id="file_saveFilelist"></div>
+        <div style="margin: 9px 0px -18px;">
+          <label class="checkbox">File Name: 
+            <input id="file_saveFileInput" class="input-xlarge" type="text">
+          </label>
+        </div>
       </div>
       <div class="modal-footer">
         <a href="#" class="btn btn-primary" id="btn_saveFile_saveDialog">Save</a>
+        <a href="#" data-dismiss="modal" class="btn">Close</a>
+      </div>
+    </div>
+
+    <!-- open dialog -->
+    <div class="modal hide" id="file_openDialog">
+      <div class="modal-header">
+        <h3 id="file_openDialogTitle" style="color:#FFFFFF;">Open Project</h3>
+      </div>
+      <div id="file_openDialogWindowBody" class="modal-body">
+        <div id="file_openDialogDescription"><p>Please choose a file to open</p></div>
+        <div id="file_openFilelist"></div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-primary" id="btn_openProject">Open</a>
         <a href="#" data-dismiss="modal" class="btn">Close</a>
       </div>
     </div>

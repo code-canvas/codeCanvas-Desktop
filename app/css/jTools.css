@@ -595,7 +595,7 @@ INPUT
 {
 	margin: 0;
 	padding: 0;
-	height:200px; 
+	height:180px; 
 	overflow: none;
 	overflow-y: auto; 
 	border: 1px solid #EDEDED;
@@ -615,6 +615,47 @@ INPUT
 	margin: 0px;
 	padding: 2px 0px;
 	cursor: pointer;
+}
+
+#file_openFilelist 
+{
+	margin: 0;
+	padding: 0;
+	height:180px; 
+	overflow: none;
+	overflow-y: auto; 
+	border: 1px solid #EDEDED;
+}
+#file_openDialog p
+{
+	font-size: 14px !important;
+}
+#file_openFilelist ul
+{
+	margin: 2px;
+	padding: 0px;
+}
+#file_openFilelist li
+{
+	list-style: none;
+	margin: 0px;
+	padding: 2px 0px;
+	cursor: pointer;
+}
+.fs_item {
+
+	border-radius: 3px;
+	padding: 2px 8px 2px 0;
+}
+.fs_item:hover {
+
+	background-color: #F7F7F7;
+}
+
+.fs_item_selected
+{
+	color: blue !important;
+	background-color: #F7F7F7;
 }
 
 

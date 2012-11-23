@@ -166,14 +166,72 @@ var codeCanvas = {
 	 	});
 	},
 
-	doSave : function(callback){
+	doOpen : function(filename, callback){
+
+		var fs = require('fs'),
+  			path = require('path'),
+			node_sep = path.sep;
+
+		//get the full path to the file
+		filename = fs_current_dir.path + node_sep + filename;
+
+		//does it exist?
+		path.exists(filename, function (exists) {
+		  
+			if (exists) {
+
+				//open the file
+				fs.readFile(filename, function (err, content) {
+					
+					if (err) {
+						require('util').log('Error thrown: ' + err);
+						callback("");
+						return false;
+					}
+
+					//set the current opened file name
+					openProjectLocation = filename;
+
+					callback(content);
+				});
+
+			} else {
+
+				require('util').log('File Not Found: ' + filename);
+				callback("");
+			}
+		});
+	},
+
+	doSave : function(filename, contents, callback){
 		
+		var fs = require('fs'),
+  			path = require('path'),
+			node_sep = path.sep;
+
 		//save a project to disk
+		filename = fs_current_dir.path + node_sep + filename;
 
-		console.log("file saved");
-		jTools_dirty = false;
+  		fs.writeFile(filename, contents, function(err) {
+      
+			if(err) {
+			  
+			  //throw alert TODO
+			  //alert(err)
 
-		callback();
+			} else {
+			  
+			  //set the current opened file name
+			  openProjectLocation = filename;
+
+			  //write the current status
+			  codeCanvas.statusUpdate("The file was saved");
+			}
+			
+			jTools_dirty = false;
+
+			callback();
+		}); 
 	},
 
 	encodeXml : function(string){
@@ -183,7 +241,7 @@ var codeCanvas = {
 	  	});
 	},
 
-	exportProject : function(){
+	exportProject : function(callback){
 
 		//remove any selection or resizable from elements
 		canvas.adjustClasses("notSelected");
@@ -238,6 +296,8 @@ var codeCanvas = {
 
 			//resfresh the editor
 			editor_export.refresh();
+
+			callback();
 	    });
 	},
 
@@ -284,12 +344,9 @@ var codeCanvas = {
 		    	.removeClass("jTools_ToolxProp_btn_down")
 		    	.addClass("jTools_ToolxProp_btn_up");
 
-		    $(this)
+		    $(elem)
 		    	.removeClass("jTools_ToolxProp_btn_up")
 		    	.addClass("jTools_ToolxProp_btn_down");
-
-		    //TODO
-		    //codeCanvas.rebuildElements_ex();
 
 		    canvas.adjustClasses("jTools_ToolxTool_xSelect1");
 			canvas.bind_jTools();
@@ -342,14 +399,19 @@ var codeCanvas = {
 
 	    //toolbar click events
 
+	    //click event for start new project
 	    $("#btnToolbar_new").on("click", function(){
 	    	codeCanvas.newProject(true);
 	    });
 
+	    //click event for export canvas
 	    $("#btnToolbar_export").on("click", function(){
-	    	codeCanvas.exportProject();
+	    	codeCanvas.exportProject(function(){
+
+	    	});
 	    });
 
+	    //click event for save project
 	    $("#btnToolbar_save").on("click", function(){
 
 	    	var fs = require('fs');
@@ -377,21 +439,116 @@ var codeCanvas = {
 	    		//place the fs_items into the list
 		    	$('#file_saveFilelist').html( ul );
 
-		    	getDirectory.bindEvents();
+		    	//bind events to the file list items
+		    	getDirectory.bindEvents('#file_saveFilelist');
 
+		    	//show the project save dialog
 		    	$("#file_saveDialog").modal({
+	            	backdrop : "static",
+	            	keyboard: true,
+	            	show : true
+	            });	 
+
+		    	//reset and focus the save box
+	            $('#file_saveFileInput')
+					.val('')
+					.focus();   		
+	    	});
+	    	
+	    	//the Save button was clicked
+            $("#btn_saveFile_saveDialog").on("click", function(){
+            	
+            	//get the file name
+            	var f = $("#file_saveFileInput").val();
+            	f = $.trim(f);
+
+            	//check for no file name
+            	if ( f.length == 0 ) {
+            		//throw alert TODO
+            		return false;
+            	}
+
+            	//check to see if the file exists... TODO
+            	//alert the user if exist
+            	//TODO
+
+            	//get the html from the canvas
+            	var content = canvas.getCanvasHtml();
+
+            	//close the dialog
+            	$("#file_saveDialog").modal("hide");
+            	
+            	//run the save method
+            	codeCanvas.doSave(f, content, function(){
+
+            	});
+            });
+	    });
+		
+		//click event for open project
+		$("#btnToolbar_open").on("click", function(){
+
+	    	var fs = require('fs');
+
+	    	var node_base_directory,
+	    	node_project_dir,
+	    	node_project_dir_ext;
+
+	    	var node_path = require('path'),
+			node_sep = node_path.sep, 
+			stats;
+
+	    	//the app base install directory
+		  	node_base_directory = node_path.dirname(require.main.filename);
+
+		  	//cross platform join sets the correct separator
+		  	node_project_dir_ext = node_path.join("content", "user", "projects");
+
+		  	//buid the path to the projects directory
+		  	node_project_dir = node_base_directory + node_sep + node_project_dir_ext;
+
+	    	//get the project directory contents in the save dialog
+	    	getDirectory.readDir(node_project_dir, function(){
+
+	    		//place the fs_items into the list
+		    	$('#file_openFilelist').html( ul );
+
+		    	getDirectory.bindEvents('#file_openFilelist');
+
+		    	$("#file_openDialog").modal({
 	            	backdrop : "static",
 	            	keyboard: true,
 	            	show : true
 	            });	    		
 	    	});
 	    	
-
-	    	//the Save button was clicked
-            $("#btn_saveFile_saveDialog").on("click", function(){
+	    	//the open button was clicked
+            $("#btn_openProject").on("click", function(){
             
-            	//need to build a file dialog that uses node
+            	//get the selected file name
+            	var f = $("#file_saveFileInput").val();
+            	f = $.trim(f);
 
+            	//check for no file name
+            	if ( f.length == 0 ) {
+            		//throw alert TODO
+            		//alert("there is no file selected...")
+            		return false;
+            	}
+
+            	//close the dialog
+            	$("#file_openDialog").modal("hide");
+            	
+            	//run the save method
+            	codeCanvas.doOpen(f, function(content){
+
+            		//set the html to the canvas
+            		canvas.openProject(content.toString());
+            		
+            		//update the editor
+					codeCanvas.updateEditor(content.toString());
+
+            	});
             });
 	    });
 
@@ -453,9 +610,12 @@ var codeCanvas = {
 	loadElementConstructor : function(id){
 
 		//get the html for this tool
-
 		var jTools_tool,
-			html_tool_constructor = $.trim( $("#user_jTool_html").contents().find("#" + id).html() ),
+			html_tool_constructor = $.trim( $("#user_jTool_html")
+				.contents()
+				.find("#" + id)
+				.html() 
+			),
 			trim_html = html_tool_constructor.split('\n');
 
 		//remove the line breaks and trim html
@@ -499,7 +659,6 @@ var codeCanvas = {
        	if ($.trim(jTools_elementConstArr[0])!= ''){
 
          	editor_htmlProp.setValue(jTools_elementConstArr[0]);
-
 
        	} else {
 
@@ -570,15 +729,11 @@ var codeCanvas = {
 
 	newProject : function(b){
 
-		console.log("newProject");
-
 		//does the user need to save the project?
 		if ( b != false && jTools_dirty === true ) {
 
 			//ask the user to save the project
 			codeCanvas.saveProject(function(){
-
-				console.log("saveProject completed");
 
 				//take a breath...
 				setTimeout(function(){
@@ -588,6 +743,7 @@ var codeCanvas = {
 					"check for save" flag set to false indicating
 					our save attempt */
 					codeCanvas.newProject(false);
+
 				},100);
 			});
 		
@@ -828,18 +984,17 @@ var codeCanvas = {
 
 		//resfresh the editor
 		editor_htmlProp.refresh();
-
 	},
 
 	statusUpdate : function(str){
 
 		//update a status bar
+		require('util').log("test" + str);
 	},
 
 	updateEditor : function(html){
 
 		editor.setValue( html );
-		//editor.getSearchCursor('<div class="ui-resizable-handle ui-resizable-s">').replace("");
 
 		CodeMirror.commands["selectAll"](editor);
 		autoFormatSelection(editor);
@@ -848,8 +1003,6 @@ var codeCanvas = {
 
 		//update the layout buffer
 		//TODO: layoutBuffer["layout_html"]= $("#jToolsCanvas").html();
-
-
 	},
 
 	updateSelectedElement : function() {
@@ -878,20 +1031,22 @@ var codeCanvas = {
 			selected = "Canvas";
 		}
 
-		codeCanvas.statusUpdate("Selected: " + selected);
+		//codeCanvas.statusUpdate("Selected: " + selected);
 
 	}
 }
 
 var getDirectory = {
 
-	bindEvents : function(){
+	bindEvents : function(ele){
 
 		//bind the click event to the new fs_items
 		$(".fs_item").unbind("click").bind("click", function(){
 
 			var self = this,
 				fs_type = $(self).attr("data-type");
+
+			$(".fs_item").removeClass("fs_item_selected");
 
 			if ( fs_type == "dir") {
 
@@ -903,9 +1058,11 @@ var getDirectory = {
 				getDirectory.readDir(fs_path, function(){
 
 					//place the fs_items into the list
-					$('#file_saveFilelist').html( ul );
+					$(ele).html( ul );
 
-					getDirectory.bindEvents();
+					//re-bind the new elements in the file list
+					//passing the file list element to fill
+					getDirectory.bindEvents(ele);
 
 				});
 
@@ -913,6 +1070,13 @@ var getDirectory = {
 
 				//this is a file... do save on this file
 				//TODO
+
+				$(self).addClass("fs_item_selected");
+
+				//use this for our selected file name (even in other dialogs... like open)
+				$('#file_saveFileInput')
+					.val( $(self).text())
+					.focus(); 
 			}
 		});
 	},

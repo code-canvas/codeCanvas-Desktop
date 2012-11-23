@@ -90,8 +90,6 @@ function bind_jTools(){
 	$(".jTools_containerTarget").bind("click", function(e){
 		e.stopPropagation();
 
-		console.log("bind click");
-		
 		//set the global selected element
 		eleSelected = this;
 
@@ -211,12 +209,31 @@ function deleteElement(ele){
 
 	//currently selected element is this canvas
 	eleSelected = $("#jToolsCanvas");
-
 }
 
 function getCanvasHtml(){
 
 	return $("#jToolsCanvas").html();
+}
+
+function openProject(content){
+
+    $("#jToolsCanvas").html(content);
+
+    //this removes the codeCanvas logo due to content being added to the canvas
+	$("#jToolsCanvas").removeClass("cc_logo");
+
+    //rebuild element bindings
+    adjustClasses("jTools_ToolxTool_xSelect");
+    bind_jTools();
+    bindContainers();
+
+    //run any user defined javascript
+	udf();
+
+    //update the layout buffer
+    //layoutBuffer["layout_id"]="Main Layout";
+    //layoutBuffer["layout_html"]= $("#jToolsCanvas").html();
 
 }
 
@@ -224,6 +241,8 @@ function newProject(){
 
 	$("#jToolsCanvas").html("");
 
+	//this removes the codeCanvas logo due to content being added to the canvas
+	$("#jToolsCanvas").addClass("cc_logo");
 }
 
 /*
