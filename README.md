@@ -12,7 +12,9 @@ The application hosted at codeCanvas.org requires a good amount of server side f
 - Place the codeCanvas files into the 'content' directory in app.js
 - Start the app loader in the main app.js directory
 - Check out the video -> building a simple form using a Bootstrap tool - http://youtu.be/7B5njAEy9Cs
-
+                                                                  
+<iframe width="640" height="480" src="http://www.youtube.com/embed/318y-PJArX4?rel=0" frameborder="0" allowfullscreen></iframe>
+                                                                      
 ##Structure
 
 - The application codebase is located in the 'app' directory
