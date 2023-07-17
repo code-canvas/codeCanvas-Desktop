@@ -1,59 +1,58 @@
-#codeCanvas Desktop
+# 🪄 codeCanvas Desktop
 
-This is an open source effort to create a community driven version of codeCanvas to run in App.js on the desktop.
+This is an open-source effort to create a community-driven version of codeCanvas to run in App.js on the desktop.
 
-##Idea and goals
+#
+## 🪄 Idea and Goals: 
 
-The application hosted at codeCanvas.org requires a good amount of server side file handling. My goal is to provide file handling in Node using the App.js framework.
+The application hosted at codeCanvas.org requires a good amount of server-side file handling. My goal is to provide file handling in Node using the App.js framework.
 
-##Getting Started
+## 🪄 Getting Started
 
 - Download App.js for your platform (Mac, Linux, Windows)
 - Place the codeCanvas files into the 'content' directory in app.js
 - Start the app loader in the main app.js directory
-- Check out the promo video -> http://youtu.be/318y-PJArX4?hd=1
-- Check out the video -> building a simple form using a Bootstrap tool - http://youtu.be/7B5njAEy9Cs
+- Check out the promo video -> [Video](http://youtu.be/318y-PJArX4?hd=1)
+- Check out the video -> [Building a simple form using a Bootstrap tool](http://youtu.be/7B5njAEy9Cs)
                                                 
                                                                       
-##Structure
+## 🪄 Structure
 
 - The application codebase is located in the 'app' directory
 - The user directory contains files needed to create tools (explained below)
 
-###User directory
+### 🪄 User directory
 
-- usertools.html - this contains the html for the tools in your toolbox. The html construct is located inside a LI with the class "userTool". This allows you to create tool html naturally.
+- usertools.html - this contains the HTML for the tools in your toolbox. The html construct is located inside a LI with the class "userTool". This allows you to create tool html naturally.
 
-- usertools_design.js - This provides a the javascript for the tools while in the designer. 
+- usertools_design.js - This provides the javascript for the tools while in the designer. 
 - usertools_run.js - This provides the javascript your tool needs to work in a runtime environment
 
 - usertools_design.css - This provides the styles for the tools while in the designer.  
 - usertools_run.css - This provides the styles your tool needs to work in a runtime environment
 
-##Participation
+## 🪄 Participation
 
 The idea for this project came after many, many requests to open codeCanvas. It is far from perfect but the concept is working and just needs a good team of people to make it awesome.
 
-We need people to help:
+* We need people to help:
 
-- Code more awesome features
-- Create interesting tools 
-- Write docs and do videos
-- Create a support forum
+  - Code more awesome features
+  - Create interesting tools 
+  - Write docs and do videos
+  - Create a support forum
 
-##To Do
+## 🪄 To Do:
 
-a few things I am working on:
+Things I am working on:
 
 - multiple layouts per project
 - layout tree and management
 - specific tools for each project
 - building a 'default' set of templates for new projects
 
-##Contact
+## 🪄 Contact
 
-You can contact me on the codeCanvas website
-
-http://www.codecanvas.org/contact/
+You can contact me on the website : [codeCanvas](http://www.codecanvas.org/contact/)
 
 
